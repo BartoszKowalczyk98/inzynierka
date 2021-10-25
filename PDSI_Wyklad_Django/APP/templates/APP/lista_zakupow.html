@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- biblioteki potrzebne do bootstrapa 4-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Lista pozycji do kupienia</title>
+</head>
+<header>
+    {#    <form>#}
+    {#        <a class="btn btn-primary" style="color: aliceblue" onclick="history.go(-1)">Wróć</a>#}
+    {#    </form>#}
+    <a class="btn btn-primary" href="/">Wróć</a>
+</header>
+<body>
+
+{% if lista_sklepow_do_odwiedzenia %}
+    {% for sklep in lista_sklepow_do_odwiedzenia %}
+
+        <table class="table">
+            <thead>
+            <th>Sklep</th>
+            <th>Produkt</th>
+            <th>ilosc</th>
+            <th>cena</th>
+            <th></th>
+            </thead>
+            <tbody>
+            {% for pozycja in lista_pozycji %}
+
+                {% if pozycja.shop == sklep %}
+                    <tr>
+                        <td>{{ pozycja.shop }}</td>
+                        <td>{{ pozycja.product_name }}</td>
+                        <td>{{ pozycja.amount }}</td>
+                        <td>{{ pozycja.price_per_unit }}</td>
+                        <td>
+                            {% if not pozycja.bought %}
+                                <form action="/kupione/{{ pozycja.id }}" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" , value="Kupione" class="btn btn-danger">
+                                </form>
+                            {% else %}
+                                <input type="button" value="Kupione" class="btn btn-success">
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            {% endfor %}
+            <tr>
+                <td>Podsumowanie</td>
+                <td></td>
+                <td></td>
+                <td>{{ lista_sklepow_i_sum.pop.sum }}zł</td>
+            </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+</body>
+</html>

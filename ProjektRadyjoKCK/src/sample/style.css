@@ -1,0 +1,18 @@
+#pane{
+-fx-background-image: url("podstawapodradio.jpg");
+-fx-background-repeat: stretch;
+    -fx-background-size: 600    400;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+#play{
+-fx-background-image: url("buttonoff.PNG");
+-fx-background-repeat: stretch;
+   -fx-background-size: 30 30;
+}
+#wyswietlacz{
+       -fx-font-family: "LCDDot";
+       -fx-font-size: 14;
+       -fx-text-fill: red;
+}
+
